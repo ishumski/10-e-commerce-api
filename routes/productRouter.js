@@ -8,14 +8,15 @@ const {
     deleteProduct,
     uploadImage
 } = require('../controllers/productController')
+const { authorizePermissions} = require('../middleware/authentication')
 
 
-router.post('/', createProduct)
+router.post('/', authorizePermissions('admin'), createProduct)
 router.get('/', getAllProducts)
 router.get('/:id', getSingleProduct)
-router.patch('/:id', updateProduct)
-router.delete('/:id', deleteProduct)
-router.post('/upload', uploadImage)
+router.patch('/:id', authorizePermissions('admin'), updateProduct)
+router.delete('/:id', authorizePermissions('admin'), deleteProduct)
+router.post('/uploadImage', authorizePermissions('admin'), uploadImage)
 
 module.exports = router
 
