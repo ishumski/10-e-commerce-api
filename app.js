@@ -15,6 +15,7 @@ const {authUser} = require("./middleware/authentication");
 const authRouter = require('./routes/authRouter')
 const userRouter = require('./routes/userRouter')
 const productRouter = require('./routes/productRouter')
+const reviewRouter = require('./routes/reviewController')
 
 app.use(express.json())
 app.use(cookieParser(process.env.JWT_SECRET))
@@ -26,6 +27,7 @@ app.get('/', (req, res) => res.send('E-commerce'))
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/users', userRouter)
 app.use('/api/v1/products', authUser, productRouter)
+app.use('/api/v1/reviews', authUser, reviewRouter)
 
 //middlewares
 app.use(notFound)
